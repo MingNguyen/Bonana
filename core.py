@@ -10,7 +10,7 @@ class banana():
         self.A, self.B = 0,0
         # the pace to use for the movement of the angle
         self.A_PACE,self.B_PACE = 0.314,0.0785
-        self.THETA_PACE,self.PHI_PACE = 0.04,0.06
+        self.THETA_PACE,self.PHI_PACE = 0.04,0.09
         # the depth and the circle center point is used for moving the object to a new virtual coordinate system
         self.depth = np.array((0,0,6))
         self.circle_center_vector = np.array((self.R1, 0, 0))
