@@ -72,10 +72,11 @@ for i in range(len(a)):
     h.append('')
 i = 0
 #this line is to show it on the screen
-while True:
-    if i < len(a):
-        system("cls")
-        print(h[i])
-        sleep(0.07)
-        i += 1
-    else: i = 0
+def recursion(h,i):
+    system("cls")
+    print(h[i])
+    sleep(0.07)
+    if i == len(h) -1: return recursion(h,0)
+    else: return recursion(h,i + 1)
+
+recursion(h,i)
