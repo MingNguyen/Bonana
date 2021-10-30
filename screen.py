@@ -79,5 +79,3 @@ while True:
         sleep(0.07)
         i += 1
     else: i = 0
-
-recursion(h,i)
