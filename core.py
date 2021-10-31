@@ -30,10 +30,10 @@ class banana():
         
     def draw_circle(self,R2,frame):
         #update the cordinate and surface normal of the circle
-        circle_draw = np.array((R2 * cos(self.phi),R2 * sin(self.phi), 0))
+        circle_point = np.array((R2 * cos(self.phi),R2 * sin(self.phi), 0))
         self.circle_surface_normal = np.array((cos(self.phi),sin(self.phi),0))
         #move the circle to it center
-        self.circle = self.circle_center_vector + circle_draw
+        self.circle = self.circle_center_vector + circle_point
         #update the value of the angle phi
         self.phi += self.PHI_PACE
         #make the dot products to get the banana cordinate and surface normal in a frame
