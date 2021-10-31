@@ -39,11 +39,13 @@ class banana():
         #make the dot products to get the banana cordinate and surface normal in a frame
         self.banana =  self.temporary @ self.circle
         self.banana_surface_normal = self.temporary @ self.circle_surface_normal
-        #this function is to save the output of core, go to line 57
+        #this function is to save the output of core, go to line 59
         self.write_cordinate(frame)
         # Recursion to loop the action of draw circle
         self.phi += self.PHI_PACE
+        # recursion to draw banana
         if self.phi < 2*pi:
+            # go to line 31
             return self.draw_circle(R2,frame)
         else: return 0
 
@@ -60,31 +62,29 @@ class banana():
         self.surface_normal_3D[frame].append(self.banana_surface_normal) 
 
     def draw_banana(self,frame):
-        # theta is the angle for "rotating circle matrix" to move the circle to a new cordinate
-        self.theta = 0
-        # make the loops until all every circle in the frame are written
-        while self.theta < 5*pi/6:
-            # R2 is the projection of the circle to the coordinate system
-            banana_point = self.R1 * cos(self.theta)
-            #go to line 50
-            R2 = self.update_R2(banana_point)
-            #update new value of theta after has been used 
-            self.theta += self.THETA_PACE
-            # temporary matrix is to contain all 3 rotation and its dot product
-            self.temporary = self.move @ self.rotating_circle_matrix
-            # phi is the angle for "circle matrix" to move the circle to a new cordinate
-            self.phi = 0
-            # make the loops until a circle has been drawn, go to line 31
-            self.draw_circle(R2,frame)
+        banana_point = self.R1 * cos(self.theta)
+        #go to line 39
+        R2 = self.update_R2(banana_point)
+        #update new value of theta after has been used 
+        # temporary matrix is to contain all 3 rotation and its dot product
+        self.temporary = self.move @ self.rotating_circle_matrix
+        # phi is the angle for "circle matrix" to move the circle to a new cordinate
+        self.phi = 0
+        # make the loops until a circle has been drawn, go to line 49
+        self.draw_circle(R2,frame)
+                
 
-            #update the rotation matrixes
-            self.rotating_circle_matrix = np.array(
-                (
+        #update the rotation matrixes
+        self.rotating_circle_matrix = np.array(
+            (
                     (cos(self.theta), 0, sin(self.theta)),
                     (0, 1, 0),
                     (-sin(self.theta), 0, cos(self.theta))
-                )
             )
+        )
+        self.theta += self.THETA_PACE
+        if self.theta < 5/6*pi: return self.draw_banana(frame)
+        else: return 0
         
     def new_frame(self):
         #update the angle any time the function is called
@@ -117,7 +117,8 @@ class banana():
             # 2 next commands require to make a new generator to install the value of a new frame
             self.cordinate_3D.append([])
             self.surface_normal_3D.append([])
-            # this command is to draw a banana and go to the line 62
+            # this command is to draw a banana and go to the line 64
+            self.theta = 0
             self.draw_banana(frame)
             # this comment is to update some variables, go to line 89
             self.new_frame()
